@@ -22,4 +22,18 @@ class Api::RecipesController < ApplicationController
     @recipe.save
     render 'show.json.jb'
   end
+
+  def update
+    # find the correct recipe
+    @recipe = Recipe.find_by(id: params[:id])
+    # upate that particular recipe
+    @recipe.title = "chicken wings"
+    @recipe.chef = "rachel ray"
+    @recipe.ingredients = "chickens + wing"
+    @recipe.directions = "chicken the wing"
+    @recipe.prep_time = 30
+    @recipe.image_url = ""
+    @recipe.save
+    render 'show.json.jb'
+  end
 end
