@@ -1,4 +1,6 @@
 class Recipe < ApplicationRecord
+  belongs_to :user
+  
   # def hello
   #   "hello it is monday"
   # end

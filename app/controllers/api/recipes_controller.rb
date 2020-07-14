@@ -30,6 +30,9 @@ class Api::RecipesController < ApplicationController
   end
 
   def create
+    p "*" * 88
+    p current_user
+    p "*" * 88
     # make a new recipe in the db
     @recipe = Recipe.new(      
       chef: params[:chef],
@@ -37,8 +40,11 @@ class Api::RecipesController < ApplicationController
       ingredients: params[:ingredients],
       prep_time: params[:prep_time],
       directions: params[:directions],
-      image_url: params[:image_url]
+      image_url: params[:image_url],      
+      user_id: current_user.id
     )
+
+    
     @recipe.save
     render 'show.json.jb'
   end
