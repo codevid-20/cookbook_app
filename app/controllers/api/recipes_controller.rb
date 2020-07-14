@@ -1,13 +1,24 @@
 class Api::RecipesController < ApplicationController
   def index
-    if params[:search]
-      @recipes = Recipe.where("chef LIKE ?", "%#{params[:search]}%")
-      # @recipes = Recipe.where("chef LIKE ? OR ingredients LIKE ?", "%#{params[:search]}%", "%#{params[:search]}%")
-    else 
-      @recipes = Recipe.all
-    end
 
-    @recipes = @recipes.order(:id => :desc)
+    p "*" * 88
+    p current_user
+    p "*" * 88
+
+    
+    # if params[:search]
+    #   @recipes = Recipe.where("chef LIKE ?", "%#{params[:search]}%")
+    #   # @recipes = Recipe.where("chef LIKE ? OR ingredients LIKE ?", "%#{params[:search]}%", "%#{params[:search]}%")
+    # else 
+    #   @recipes = Recipe.all
+    # end
+
+    if current_user
+      @recipes = Recipe.order(:id => :desc)
+    else
+      @recipes = []
+    end
+    
 
     
     render 'index.json.jb'
