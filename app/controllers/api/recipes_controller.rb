@@ -43,7 +43,6 @@ class Api::RecipesController < ApplicationController
       image_url: params[:image_url],      
       user_id: current_user.id
     )
-
     
     @recipe.save
     render 'show.json.jb'
