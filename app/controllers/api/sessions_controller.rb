@@ -1,6 +1,7 @@
 class Api::SessionsController < ApplicationController
   def create
     user = User.find_by(email: params[:email])
+    p user    
     if user && user.authenticate(params[:password])
       jwt = JWT.encode(
         {
@@ -10,6 +11,7 @@ class Api::SessionsController < ApplicationController
         Rails.application.credentials.fetch(:secret_key_base), # the secret key
         "HS256" # the encryption algorithm
       )
+      p jwt
       render json: { jwt: jwt, email: user.email, user_id: user.id }, status: :created
     else
       render json: {}, status: :unauthorized

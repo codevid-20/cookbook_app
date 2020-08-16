@@ -13,11 +13,11 @@ class Api::RecipesController < ApplicationController
     #   @recipes = Recipe.all
     # end
 
-    if current_user
+    # if current_user
       @recipes = Recipe.order(:id => :desc)
-    else
-      @recipes = []
-    end
+    # else
+    #   @recipes = []
+    # end
     
 
     
@@ -58,7 +58,9 @@ class Api::RecipesController < ApplicationController
     @recipe.directions = params[:directions] || @recipe.directions
     @recipe.prep_time = params[:prep_time] || @recipe.prep_time
     @recipe.image_url = params[:image_url] || @recipe.image_url
-    @recipe.save
+    @recipe.user_id = @recipe.user_id || 1
+    p @recipe
+    @recipe.save!
     render 'show.json.jb'
   end
 
