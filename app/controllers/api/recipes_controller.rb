@@ -1,9 +1,9 @@
 class Api::RecipesController < ApplicationController
   def index
 
-    p "*" * 88
-    p current_user
-    p "*" * 88
+    # p "*" * 88
+    # p current_user
+    # p "*" * 88
 
     
     # if params[:search]
