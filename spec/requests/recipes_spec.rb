@@ -113,6 +113,29 @@ RSpec.describe "Recipes", type: :request do
       expect(response).to have_http_status(200)
       expect(recipe['title']).to eq('oatmeal')
     end
-    
+    it 'should return errors when user does not pass validations' do
+      user = User.create!(email: "bu@bu.com", password: "password", name: "joshua")
+
+      # generate a token
+      jwt = JWT.encode(
+        {
+          user_id: user.id, # the data to encode
+          exp: 24.hours.from_now.to_i # the expiration time
+        },
+        Rails.application.credentials.fetch(:secret_key_base), # the secret key
+        "HS256" # the encryption algorithm
+      )
+
+      
+      post "/api/recipes", headers: {
+        "Authorization" => "Bearer #{jwt}"
+      }
+      errors = JSON.parse(response.body)
+
+      p errors
+
+      expect(response).to have_http_status(:unprocessable_entity)
+      expect(errors['errors']).to eq(["Title can't be blank", "Prep time can't be blank"])
+    end
   end
 end # end of recipes controller tests

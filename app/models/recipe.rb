@@ -1,7 +1,7 @@
 class Recipe < ApplicationRecord
   belongs_to :user
   validates :title, presence: true
-  
+  validates :prep_time, presence: true
   
   # def hello
   #   "hello it is monday"

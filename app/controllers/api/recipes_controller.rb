@@ -44,8 +44,11 @@ class Api::RecipesController < ApplicationController
       user_id: current_user.id
     )
     
-    @recipe.save
-    render 'show.json.jb'
+    if @recipe.save
+      render 'show.json.jb'
+    else
+      render json: {errors: @recipe.errors.full_messages}, status: :unprocessable_entity
+    end
   end
 
   def update
