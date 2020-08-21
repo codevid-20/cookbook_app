@@ -30,9 +30,9 @@ class Api::RecipesController < ApplicationController
   end
 
   def create
-    p "*" * 88
-    p current_user
-    p "*" * 88
+    # p "*" * 88
+    # p current_user
+    # p "*" * 88
     # make a new recipe in the db
     @recipe = Recipe.new(      
       chef: params[:chef],
