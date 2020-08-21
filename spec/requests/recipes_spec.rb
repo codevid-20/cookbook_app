@@ -61,6 +61,28 @@ RSpec.describe "Recipes", type: :request do
       
       expect(response).to have_http_status(200)
       expect(recipes.length).to eq(6)
+    end # end of test
+  end # end of index action tests
+  describe "get /recipes/:id" do
+    it 'should return one specific recipe' do
+      user = User.create!(email: "bob@bob.com", password: "password", name: "joshua")
+      
+      recipe = Recipe.create!(
+        title: "chicken",
+        ingredients: "chicken etc",
+        directions: "put in instantpot",
+        prep_time: 5,
+        image_url: "instantpot.com/quinoa",
+        user_id: user.id  
+      )
+
+      get "/api/recipes/#{recipe.id}"
+      
+      recipe = JSON.parse(response.body)
+
+      expect(response).to have_http_status(200)
+      expect(recipe['title']).to eq('chicken')
+      expect(recipe['directions']).to eq('put in instantpot')
     end
   end
-end
+end # end of recipes controller tests
