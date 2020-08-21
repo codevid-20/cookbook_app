@@ -43,7 +43,7 @@ RSpec.describe "Recipes", type: :request do
         directions: "put in instantpot",
         prep_time: 12,
         image_url: "instantpot.com/quinoa",
-        user_id: user.id  
+        user_id: user.id
       )
       Recipe.create!(
         title: "quinoa",
@@ -54,7 +54,6 @@ RSpec.describe "Recipes", type: :request do
         user_id: user.id  
       )
       
-
       get "/api/recipes"
       recipes = JSON.parse(response.body)
       
@@ -136,6 +135,25 @@ RSpec.describe "Recipes", type: :request do
 
       expect(response).to have_http_status(:unprocessable_entity)
       expect(errors['errors']).to eq(["Title can't be blank", "Prep time can't be blank"])
+    end
+    it 'should be told unauthorized if not logged in' do
+      
+
+      
+      post "/api/recipes", params: {
+        title: "oatmeal",
+        ingredients: "oat + meal",
+        directions: "put in instantpot",
+        prep_time: 20,
+        image_url: "oatmeal.com"
+      }
+
+      errors = JSON.parse(response.body)
+
+      p errors
+
+      expect(response).to have_http_status(:unauthorized)
+      # expect(errors['errors']).to eq(["Title can't be blank", "Prep time can't be blank"])
     end
   end
 end # end of recipes controller tests
