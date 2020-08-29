@@ -4,6 +4,7 @@
   # chef: recipe.chef,
   chef: recipe.user && recipe.user.name,
   ingredients: recipe.ingredients,    
+  created_at: recipe.created_at,    
   prep_time: recipe.prep_time,
   directions: recipe.directions,
   image_url: recipe.image_url,
